@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -92,6 +93,13 @@ fun RowScope.AddItem(
                 tint = if (selected) Color(0xFFFFB703) else Color(0xFFFFFFFF)
             )
         },
-        alwaysShowLabel = false
+        label = {
+            Text(
+                text = screen.title,
+                color = if (selected) Color(0xFFFFB703) else Color(0xFFFFFFFF),
+
+            )
+        },
+        alwaysShowLabel = true
     )
 }
