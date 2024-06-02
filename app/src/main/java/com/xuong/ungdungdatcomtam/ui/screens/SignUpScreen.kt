@@ -1,18 +1,15 @@
 package com.xuong.ungdungdatcomtam.ui.screens
 
-import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material3.Button
@@ -41,9 +38,10 @@ import com.xuong.ungdungdatcomtam.ui.theme.Inter_Family
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
-fun LoginScreen(){
+fun SignUpScreen(){
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var repassword by remember { mutableStateOf("") }
     Column (
         modifier = Modifier
             .fillMaxWidth()
@@ -57,14 +55,14 @@ fun LoginScreen(){
                     shape = RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp)
                 )
                 .fillMaxWidth()
-                .weight(0.9f)
+                .weight(0.5f)
                 .clip(RoundedCornerShape(10.dp))
             ,
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             Text(
-                text = "Đăng nhập",
+                text = "Đăng ký",
                 color = Color.White,
                 fontFamily = Inter_Family,
                 fontSize = 32.sp,
@@ -76,7 +74,7 @@ fun LoginScreen(){
                 painter = painterResource(id = R.drawable.imgsplash),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(300.dp)
+                    .size(200.dp)
             )
         }
         Column (
@@ -123,7 +121,29 @@ fun LoginScreen(){
                 onValueChange = { password = it },
                 label = { Text("", fontSize = 16.sp) },
                 visualTransformation = PasswordVisualTransformation(),
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    focusedBorderColor = Color.Blue,
+                    unfocusedBorderColor = Color.Gray,
+                    containerColor = Color(0xFFD9D9D9)
+                ),
+                shape = RoundedCornerShape(10.dp),
+            )
+            Text(
+                text = "Nhập lại mật khẩu",
+                color = Color.White,
+                fontSize = 16.sp,
+                fontFamily = Inter_Family,
+                fontWeight = FontWeight.W400,
+                modifier = Modifier.padding(top = 12.dp)
+            )
+            OutlinedTextField(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                value = repassword,
+                onValueChange = { repassword = it },
+                label = { Text("", fontSize = 16.sp) },
+                visualTransformation = PasswordVisualTransformation(),
+                colors = TextFieldDefaults.outlinedTextFieldColors(
                     focusedBorderColor = Color.Blue,
                     unfocusedBorderColor = Color.Gray,
                     containerColor = Color(0xFFD9D9D9)
@@ -148,7 +168,7 @@ fun LoginScreen(){
                     modifier = Modifier
                 ) {
                     Text(
-                        text = "Đăng nhập",
+                        text = "Đăng ký",
                         fontFamily = Inter_Family,
                         fontWeight = FontWeight.W700,
                         fontSize = 16.sp,
