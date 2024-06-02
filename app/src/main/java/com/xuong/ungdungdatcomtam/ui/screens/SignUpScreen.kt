@@ -16,6 +16,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -152,10 +153,10 @@ fun SignUpScreen(){
             )
             Spacer(modifier = Modifier.height(32.dp))
 
-            Box(
+            Column(
                 modifier = Modifier
                     .fillMaxWidth(),
-                contentAlignment = Alignment.Center
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Button(
                     onClick = {
@@ -175,6 +176,14 @@ fun SignUpScreen(){
                         color = Color.White,
                         modifier = Modifier.padding(5.dp)
                     )
+                }
+
+                TextButton(onClick = {
+
+//                val intent = Intent(context, SignUpActivity::class.java)
+//                context.startActivity(intent)
+                }) {
+                    Text("Đăng nhập", color = Color.White, fontFamily = Inter_Family)
                 }
             }
         }
