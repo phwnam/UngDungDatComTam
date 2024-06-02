@@ -37,6 +37,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         modifier = modifier
     )
 }
+//Quỳnh
 
 @Preview(showBackground = true)
 @Composable
