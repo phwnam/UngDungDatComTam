@@ -28,6 +28,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -52,16 +53,35 @@ fun ListFoodScreen(){
                     containerColor = Color(0xFF373232),
                     titleContentColor = Color("#ffffff".toColorInt()),
                 ),
+
                 title = {
-                    Text(
-                        text = "Cum tứm đim",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        textAlign = TextAlign.Center,
+
+                    Row(
                         modifier = Modifier
-                            .padding(0.dp, 16.dp)
-                            .fillMaxWidth()
-                    )
+                            .padding(5.dp)
+                            .background(Color(0xFF373232), shape = RoundedCornerShape(15.dp)),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Image(
+                            painter = painterResource(R.drawable.imgsplash),
+                            modifier = Modifier
+                                .size(56.dp)
+                                .padding(4.dp),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Text(
+                            text = "Cum tứm đim",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(0.dp, 16.dp)
+                                .fillMaxWidth(),
+                            color = Color.White
+                        )
+                    }
                 }
             )
         },
@@ -83,10 +103,10 @@ fun GetLayoutList(innerPadding : PaddingValues = PaddingValues()) {
         ) {
 
             val foods = listOf(
-                Foods(R.drawable.img_food, "Black Simple Lamp", "$12.00"),
-                Foods(R.drawable.img_food, "Minimal Stand", "$25.00"),
-                Foods(R.drawable.img_food, "Coffee Chair", "$20.00"),
-                Foods(R.drawable.img_food, "Simple Desk", "$50.00"),
+                Foods(R.drawable.img_food, "Sườn bì", "28k"),
+                Foods(R.drawable.img_food, "B chả", "25k"),
+                Foods(R.drawable.img_food, "Trứng chả", "25k"),
+                Foods(R.drawable.img_food, "Sườn chả ", "28k"),
                 Foods(R.drawable.img_food, "Simple Desk", "$30.00"),
                 Foods(R.drawable.img_food, "Simple Desk", "$30.00"),
             )
@@ -120,7 +140,8 @@ fun FoodRow(item: Foods) {
             contentDescription = null,
             modifier = Modifier
                 .width(80.dp)
-                .height(80.dp),
+                .height(80.dp)
+                .clip(RoundedCornerShape(15.dp)),
 
 
         )
@@ -129,8 +150,8 @@ fun FoodRow(item: Foods) {
             modifier = Modifier
                 .height(100.dp)
                 .weight(1f)
-                .padding(5.dp),
-            verticalArrangement = Arrangement.SpaceBetween
+                .padding(10.dp),
+            verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(text = item.name,
                 fontSize = 16.sp,
@@ -142,28 +163,28 @@ fun FoodRow(item: Foods) {
                 color = Color(0xFFFE724C),
                 fontWeight = FontWeight.Bold,)
 
-            Spacer(modifier = Modifier.weight(1f))
+
 
 
         }
 
         Row(
-            modifier = Modifier.height(100.dp),
-            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier.height(100.dp).weight(0.3f).padding(end = 10.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.imgdelete),
-                contentDescription = null,
-                modifier = Modifier.size(25.dp),
-
-                )
             Image(
                 painter = painterResource(id = R.drawable.imgedit),
                 contentDescription = null,
                 modifier = Modifier.size(25.dp),
 
                 )
+            Image(
+                painter = painterResource(id = R.drawable.imgdelete),
+                contentDescription = null,
+                modifier = Modifier.size(25.dp),
+                )
+
         }
 
 
