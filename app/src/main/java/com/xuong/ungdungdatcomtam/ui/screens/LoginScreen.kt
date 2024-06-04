@@ -1,26 +1,21 @@
 package com.xuong.ungdungdatcomtam.ui.screens
 
-import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,25 +28,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.xuong.ungdungdatcomtam.R
+import com.xuong.ungdungdatcomtam.ui.controllerNav.Screen
 import com.xuong.ungdungdatcomtam.ui.theme.Inter_Family
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true)
 @Composable
-fun LoginScreen(){
+fun LoginScreen(navController: NavController) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    Column (
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .background(Color(0xFF373232)),
         horizontalAlignment = Alignment.CenterHorizontally
-    ){
-        Column (
+    ) {
+        Column(
             modifier = Modifier
                 .background(
                     Color(0xFF282222),
@@ -59,11 +53,10 @@ fun LoginScreen(){
                 )
                 .fillMaxWidth()
                 .weight(0.9f)
-                .clip(RoundedCornerShape(10.dp))
-            ,
+                .clip(RoundedCornerShape(10.dp)),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
-        ){
+        ) {
             Text(
                 text = "Đăng nhập",
                 color = Color.White,
@@ -76,18 +69,17 @@ fun LoginScreen(){
             Image(
                 painter = painterResource(id = R.drawable.imgsplash),
                 contentDescription = null,
-                modifier = Modifier
-                    .size(300.dp)
+                modifier = Modifier.size(300.dp)
             )
         }
-        Column (
+        Column(
             modifier = Modifier
                 .background(
                     Color(0xFF373232),
                 )
                 .weight(0.7f)
                 .padding(16.dp),
-        ){
+        ) {
             Text(
                 text = "Tên đăng nhập",
                 color = Color.White,
@@ -96,16 +88,18 @@ fun LoginScreen(){
                 fontWeight = FontWeight.W400,
                 modifier = Modifier.padding(top = 12.dp)
             )
+            val containerColor = Color(0xFFD9D9D9)
             OutlinedTextField(
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 value = username,
                 onValueChange = { username = it },
                 label = { Text("", fontSize = 16.sp) },
-                colors = TextFieldDefaults.outlinedTextFieldColors(
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = containerColor,
+                    unfocusedContainerColor = containerColor,
+                    disabledContainerColor = containerColor,
                     focusedBorderColor = Color.Blue,
                     unfocusedBorderColor = Color.Gray,
-                    containerColor = Color(0xFFD9D9D9)
                 ),
                 shape = RoundedCornerShape(10.dp),
             )
@@ -117,36 +111,36 @@ fun LoginScreen(){
                 fontWeight = FontWeight.W400,
                 modifier = Modifier.padding(top = 12.dp)
             )
+            val containerColor1 = Color(0xFFD9D9D9)
             OutlinedTextField(
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 value = password,
                 onValueChange = { password = it },
                 label = { Text("", fontSize = 16.sp) },
                 visualTransformation = PasswordVisualTransformation(),
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = containerColor1,
+                    unfocusedContainerColor = containerColor1,
+                    disabledContainerColor = containerColor1,
                     focusedBorderColor = Color.Blue,
                     unfocusedBorderColor = Color.Gray,
-                    containerColor = Color(0xFFD9D9D9)
                 ),
                 shape = RoundedCornerShape(10.dp),
             )
             Spacer(modifier = Modifier.height(32.dp))
 
             Column(
-                modifier = Modifier
-                    .fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Button(
                     onClick = {
-
-                    },
-                    colors = ButtonDefaults.buttonColors(
+                        navController.navigate(Screen.BOTTOM_MAIN_SCREEN.route){
+                            popUpTo(Screen.LOGIN_SCREEN.route) { inclusive = true }
+                        }
+                    }, colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFFFE724C)
-                    ),
-                    shape = RoundedCornerShape(30.dp),
-                    modifier = Modifier
+                    ), shape = RoundedCornerShape(30.dp), modifier = Modifier
                 ) {
                     Text(
                         text = "Đăng nhập",
@@ -159,9 +153,7 @@ fun LoginScreen(){
                 }
 
                 TextButton(onClick = {
-
-//                val intent = Intent(context, SignUpActivity::class.java)
-//                context.startActivity(intent)
+                    navController.navigate(Screen.SIGN_UP_SCREEN.route)
                 }) {
                     Text("Đăng ký", color = Color.White, fontFamily = Inter_Family)
                 }

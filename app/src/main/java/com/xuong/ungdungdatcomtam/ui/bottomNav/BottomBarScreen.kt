@@ -1,31 +1,23 @@
-package com.phwnam.furnitureshop.bottomNav
+package com.xuong.ungdungdatcomtam.ui.bottomNav
 
 import com.xuong.ungdungdatcomtam.R
 
-
 sealed class BottomBarScreen(
-    val route: String,
-    val title: String,
-    val icon: Int
-){
-    object Home : BottomBarScreen(
-        route = "Home",
-        title = "Trang chủ",
-        icon = R.drawable.imghome
+    val route: String, val title: String, val icon: Int
+) {
+    data object Home : BottomBarScreen(
+        route = "Home", title = "Trang chủ", icon = R.drawable.imghome
     )
-    object Statistic : BottomBarScreen(
-        route = "Statistic",
-        title = "Thống kê",
-        icon = R.drawable.imgcart
+
+    data object Statistic : BottomBarScreen(
+        route = "Statistic", title = "Thống kê", icon = R.drawable.imgcart
     )
-    object Manage : BottomBarScreen(
-        route = "Manage",
-        title = "Quản lý",
-        icon = R.drawable.imgmanage
+
+    data object Manage : BottomBarScreen(
+        route = "Manage", title = "Quản lý", icon = R.drawable.imgmanage
     )
-    object Profile : BottomBarScreen(
-        route = "Profile",
-        title = "Hỗ trợ",
-        icon = R.drawable.imgprofile
+
+    data object Profile : BottomBarScreen(
+        route = "Profile", title = "Hỗ trợ", icon = R.drawable.imgprofile
     )
 }

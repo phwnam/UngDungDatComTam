@@ -1,10 +1,10 @@
-package com.phwnam.furnitureshop.bottomNav
+package com.xuong.ungdungdatcomtam.ui.bottomNav
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.xuong.ungdungdatcomtam.ui.bottomNav.BottomBarScreen
 import com.xuong.ungdungdatcomtam.ui.screens.HomeScreen
 import com.xuong.ungdungdatcomtam.ui.screens.ManageScreen
 import com.xuong.ungdungdatcomtam.ui.screens.ProfileScreen
@@ -12,7 +12,7 @@ import com.xuong.ungdungdatcomtam.ui.screens.StatisticScreen
 
 
 @Composable
-fun BottomNavGraph(navController: NavHostController,innerPadding: PaddingValues = PaddingValues()){
+fun BottomNavGraph(navController: NavHostController){
     NavHost(
         navController = navController,
         startDestination = BottomBarScreen.Home.route
