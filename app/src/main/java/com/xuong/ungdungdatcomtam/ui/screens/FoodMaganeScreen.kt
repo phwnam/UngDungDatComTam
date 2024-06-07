@@ -31,18 +31,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
-import androidx.navigation.NavController
 import com.xuong.ungdungdatcomtam.R
 
 data class Foods(val image: Int, val name: String, val price: String)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FoodMaganeScreen(navController: NavController) {
+fun FoodMaganeScreen() {
     Scaffold(
         topBar = {
             TopAppBar(colors = TopAppBarDefaults.topAppBarColors(

@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.xuong.ungdungdatcomtam.ui.controllerNav.Screen
+import com.xuong.ungdungdatcomtam.ui.screens.FoodMaganeScreen
 import com.xuong.ungdungdatcomtam.ui.screens.HomeScreen
 import com.xuong.ungdungdatcomtam.ui.screens.ManageScreen
 import com.xuong.ungdungdatcomtam.ui.screens.ProfileScreen
@@ -27,6 +29,9 @@ fun BottomNavGraph(navController: NavHostController){
         }
         composable(route = BottomBarScreen.Profile.route){
             ProfileScreen()
+        }
+        composable(route = Screen.FOOD_MANAGE_SCREEN.route) {
+            FoodMaganeScreen()
         }
     }
 }

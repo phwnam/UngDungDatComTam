@@ -1,13 +1,9 @@
 package com.xuong.ungdungdatcomtam.ui.screens
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -18,21 +14,19 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
@@ -88,15 +82,27 @@ fun ManageScreen(navController: NavController) {
 @Composable
 fun GetLayout(innerPadding: PaddingValues = PaddingValues(), navController: NavController) {
     Column {
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .height(630.dp)
-            .background(Color(0xFF373232))
-            .padding(
-                top = innerPadding.calculateTopPadding()
-            )) {
-            ItemRow("Quản lý loại món ăn", R.drawable.imgsplash, navController, Screen.FOOD_MANAGE_SCREEN.route)
-            ItemRow("Quản lý món ăn", R.drawable.imgsplash, navController, Screen.FOOD_MANAGE_SCREEN.route)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .height(630.dp)
+                .background(Color(0xFF373232))
+                .padding(
+                    top = innerPadding.calculateTopPadding()
+                )
+        ) {
+            ItemRow(
+                "Quản lý loại món ăn",
+                R.drawable.imgsplash,
+                navController,
+                Screen.FOOD_MANAGE_SCREEN.route
+            )
+            ItemRow(
+                "Quản lý món ăn",
+                R.drawable.imgsplash,
+                navController,
+                Screen.FOOD_MANAGE_SCREEN.route
+            )
         }
     }
 }
@@ -107,6 +113,7 @@ fun ItemRow(name: String, logo: Int, navController: NavController, route: String
         modifier = Modifier
             .padding(5.dp)
             .clickable {
+                Log.d("Navigation", "Navigating to: $route")
                 navController.navigate(route)
             }
             .background(Color(0xFF373232), shape = RoundedCornerShape(15.dp)),
@@ -125,3 +132,4 @@ fun ItemRow(name: String, logo: Int, navController: NavController, route: String
         Text(text = name, color = Color.White, modifier = Modifier.weight(1f))
     }
 }
+
