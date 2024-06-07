@@ -43,15 +43,32 @@ fun FoodManageScreen(){
                     titleContentColor = Color("#ffffff".toColorInt()),
                 ),
                 title = {
-                    Text(
-                        text = "Cum tứm đim",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        textAlign = TextAlign.Center,
+                    Row(
                         modifier = Modifier
-                            .padding(0.dp, 16.dp)
-                            .fillMaxWidth()
-                    )
+                            .padding(5.dp)
+                            .background(Color(0xFF373232), shape = RoundedCornerShape(15.dp)),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Image(
+                            painter = painterResource(R.drawable.imgsplash),
+                            modifier = Modifier
+                                .size(56.dp)
+                                .padding(4.dp),
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop
+                        )
+                        Spacer(modifier = Modifier.width(16.dp))
+                        Text(
+                            text = "Cum tứm đim",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(0.dp, 16.dp)
+                                .fillMaxWidth(),
+                            color = Color.White
+                        )
+                    }
                 }
             )
         },
