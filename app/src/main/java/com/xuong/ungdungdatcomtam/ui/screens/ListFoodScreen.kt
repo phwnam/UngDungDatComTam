@@ -19,8 +19,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
@@ -33,26 +31,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
 import com.xuong.ungdungdatcomtam.R
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
 
 data class Foods(val image: Int, val name: String, val price: String)
+
 @Preview
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListFoodScreen(){
+fun ListFoodScreen() {
     Scaffold(
         topBar = {
-            TopAppBar(
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF373232),
-                    titleContentColor = Color("#ffffff".toColorInt()),
-                ),
+            TopAppBar(colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = Color(0xFF373232),
+                titleContentColor = Color("#ffffff".toColorInt()),
+            ),
 
                 title = {
 
@@ -82,20 +78,24 @@ fun ListFoodScreen(){
                             color = Color.White
                         )
                     }
-                }
-            )
+                })
         },
-    ) {innerPadding->
+    ) { innerPadding ->
         GetLayoutList(innerPadding)
 
     }
 }
 
 @Composable
-fun GetLayoutList(innerPadding : PaddingValues = PaddingValues()) {
-    Box(Modifier.fillMaxSize().padding(
-        top = innerPadding.calculateTopPadding()
-    ).background(Color(0xFF373232))) {
+fun GetLayoutList(innerPadding: PaddingValues = PaddingValues()) {
+    Box(
+        Modifier
+            .fillMaxSize()
+            .padding(
+                top = innerPadding.calculateTopPadding()
+            )
+            .background(Color(0xFF373232))
+    ) {
         Column(
             Modifier
                 .background(Color(0xFF373232))
@@ -113,10 +113,12 @@ fun GetLayoutList(innerPadding : PaddingValues = PaddingValues()) {
 
             Spacer(modifier = Modifier.width(10.dp))
 
-            LazyColumn(modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .padding(top = 20.dp)) {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .padding(top = 20.dp)
+            ) {
                 items(items = foods) { item ->
                     FoodRow(item = item)
                 }
@@ -127,11 +129,12 @@ fun GetLayoutList(innerPadding : PaddingValues = PaddingValues()) {
 
 @Composable
 fun FoodRow(item: Foods) {
-    Row(modifier = Modifier
-        .fillMaxWidth()
-        .padding(vertical = 5.dp)
-        .padding(horizontal = 5.dp)
-        .background(Color(0xFF2f2d2d), shape = RoundedCornerShape(15.dp)),
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 5.dp)
+            .padding(horizontal = 5.dp)
+            .background(Color(0xFF2f2d2d), shape = RoundedCornerShape(15.dp)),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -144,7 +147,7 @@ fun FoodRow(item: Foods) {
                 .clip(RoundedCornerShape(15.dp)),
 
 
-        )
+            )
         Spacer(modifier = Modifier.width(8.dp))
         Column(
             modifier = Modifier
@@ -153,23 +156,27 @@ fun FoodRow(item: Foods) {
                 .padding(10.dp),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
-            Text(text = item.name,
+            Text(
+                text = item.name,
                 fontSize = 16.sp,
                 color = Color.White,
 
-            )
-            Text(text = item.price,
+                )
+            Text(
+                text = item.price,
                 fontSize = 20.sp,
                 color = Color(0xFFFE724C),
-                fontWeight = FontWeight.Bold,)
-
-
+                fontWeight = FontWeight.Bold,
+            )
 
 
         }
 
         Row(
-            modifier = Modifier.height(100.dp).weight(0.3f).padding(end = 10.dp),
+            modifier = Modifier
+                .height(100.dp)
+                .weight(0.3f)
+                .padding(end = 10.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -183,7 +190,7 @@ fun FoodRow(item: Foods) {
                 painter = painterResource(id = R.drawable.imgdelete),
                 contentDescription = null,
                 modifier = Modifier.size(25.dp),
-                )
+            )
 
         }
 

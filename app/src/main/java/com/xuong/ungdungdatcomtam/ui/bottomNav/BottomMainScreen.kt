@@ -18,7 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -27,7 +26,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun BottomMainScreen(navController: NavController) {
+fun BottomMainScreen() {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = { BottomBar(navController = navController) },
@@ -76,24 +75,25 @@ fun RowScope.AddItem(
         it.route == screen.route
     } == true
 
-    BottomNavigationItem(selected = selected, onClick = {
-        navController.navigate(screen.route) {
-            popUpTo(navController.graph.findStartDestination().id)
-            launchSingleTop = true
-        }
-    }, icon = {
-        Icon(
-            modifier = Modifier.size(24.dp),
-            painter = painterResource(id = screen.icon),
-            contentDescription = "Navigation Icon",
-            tint = if (selected) Color(0xFFFFB703) else Color(0xFFFFFFFF)
-        )
-    }, label = {
-        Text(
-            text = screen.title,
-            color = if (selected) Color(0xFFFFB703) else Color(0xFFFFFFFF),
-
+    BottomNavigationItem(
+        selected = selected, onClick = {
+            navController.navigate(screen.route) {
+                popUpTo(navController.graph.findStartDestination().id)
+                launchSingleTop = true
+            }
+        }, icon = {
+            Icon(
+                modifier = Modifier.size(24.dp),
+                painter = painterResource(id = screen.icon),
+                contentDescription = "Navigation Icon",
+                tint = if (selected) Color(0xFFFFB703) else Color(0xFFFFFFFF)
             )
-    }, alwaysShowLabel = true
+        }, label = {
+            Text(
+                text = screen.title,
+                color = if (selected) Color(0xFFFFB703) else Color(0xFFFFFFFF),
+
+                )
+        }, alwaysShowLabel = true
     )
 }
