@@ -5,4 +5,5 @@ enum class Screen(val route: String) {
     LOGIN_SCREEN("Login"),
     SIGN_UP_SCREEN("SignUp"),
     BOTTOM_MAIN_SCREEN("BottomMain"),
+    FOOD_MANAGE_SCREEN("FoodManage"),
 }

@@ -113,7 +113,9 @@ fun GetLayoutOder(innerPadding : PaddingValues = PaddingValues()) {
                     }, colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFF2f2d2d)
                     ), shape = RoundedCornerShape(10.dp),
-                    modifier = Modifier.weight(1f).padding(10.dp)
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(10.dp)
                 ) {
                     Text(
                         text = "Xác nhận",
@@ -130,7 +132,9 @@ fun GetLayoutOder(innerPadding : PaddingValues = PaddingValues()) {
                     }, colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFF2f2d2d)
                     ), shape = RoundedCornerShape(10.dp),
-                    modifier = Modifier.weight(1f).padding(10.dp)
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(10.dp)
                 ) {
                     Text(
                         text = "Hủy",
@@ -151,52 +155,54 @@ fun GetLayoutOder(innerPadding : PaddingValues = PaddingValues()) {
 
             Spacer(modifier = Modifier.width(10.dp))
 
-
-            Text(text = "Món chính",
-                fontSize = 22.sp,
-                color = Color.White,
-                modifier = Modifier.padding(start = 10.dp),
-                fontFamily = Inter_Family,
-                fontWeight = FontWeight.ExtraBold
+            Column(
+                modifier = Modifier.fillMaxHeight()
+            ) {
+                Text(text = "Món chính",
+                    fontSize = 22.sp,
+                    color = Color.White,
+                    modifier = Modifier.padding(start = 10.dp),
+                    fontFamily = Inter_Family,
+                    fontWeight = FontWeight.ExtraBold
                 )
-            LazyColumn(modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .padding(top = 10.dp)) {
-                items(items = oders) { item ->
-                    OderRow(item = item)
+                LazyColumn(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp)) {
+                    items(items = oders) { item ->
+                        OderRow(item = item)
+                    }
+                }
+                Text(text = "Món thêm ",
+                    fontSize = 22.sp,
+                    color = Color.White,
+                    modifier = Modifier.padding(start = 10.dp),
+                    fontFamily = Inter_Family,
+                    fontWeight = FontWeight.ExtraBold
+                )
+                LazyColumn(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp)) {
+                    items(items = oders) { item ->
+                        OderRow(item = item)
+                    }
+                }
+                Text(text = "Topping",
+                    fontSize = 22.sp,
+                    color = Color.White,
+                    modifier = Modifier.padding(start = 10.dp),
+                    fontFamily = Inter_Family,
+                    fontWeight = FontWeight.ExtraBold
+                )
+                LazyColumn(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp)) {
+                    items(items = oders) { item ->
+                        OderRow(item = item)
+                    }
                 }
             }
-            Text(text = "Món thêm ",
-                fontSize = 22.sp,
-                color = Color.White,
-                modifier = Modifier.padding(start = 10.dp),
-                fontFamily = Inter_Family,
-                fontWeight = FontWeight.ExtraBold
-            )
-            LazyColumn(modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .padding(top = 10.dp)) {
-                items(items = oders) { item ->
-                    OderRow(item = item)
-                }
-            }
-            Text(text = "Topping",
-                fontSize = 22.sp,
-                color = Color.White,
-                modifier = Modifier.padding(start = 10.dp),
-                fontFamily = Inter_Family,
-                fontWeight = FontWeight.ExtraBold
-            )
-            LazyColumn(modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .padding(top = 10.dp)) {
-                items(items = oders) { item ->
-                    OderRow(item = item)
-                }
-            }
+
+
         }
     }
 }

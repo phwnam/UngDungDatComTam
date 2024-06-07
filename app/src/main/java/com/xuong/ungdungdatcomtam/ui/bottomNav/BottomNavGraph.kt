@@ -23,7 +23,7 @@ fun BottomNavGraph(navController: NavHostController){
             StatisticScreen()
         }
         composable(route = BottomBarScreen.Manage.route){
-            ManageScreen()
+            ManageScreen(navController)
         }
         composable(route = BottomBarScreen.Profile.route){
             ProfileScreen()

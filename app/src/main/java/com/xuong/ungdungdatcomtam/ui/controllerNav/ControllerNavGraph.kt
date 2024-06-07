@@ -11,7 +11,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.xuong.ungdungdatcomtam.ui.bottomNav.BottomMainScreen
 import com.xuong.ungdungdatcomtam.ui.screens.BoardingScreen
+import com.xuong.ungdungdatcomtam.ui.screens.FoodMaganeScreen
 import com.xuong.ungdungdatcomtam.ui.screens.LoginScreen
+import com.xuong.ungdungdatcomtam.ui.screens.ManageScreen
 import com.xuong.ungdungdatcomtam.ui.screens.SignUpScreen
 
 @Composable
@@ -45,5 +47,12 @@ fun ControllerNavGraph() {
         composable(Screen.BOTTOM_MAIN_SCREEN.route) {
             BottomMainScreen()
         }
+        composable(Screen.BOTTOM_MAIN_SCREEN.route) {
+            BottomMainScreen()
+        }
+        composable(Screen.FOOD_MANAGE_SCREEN.route) {
+            FoodMaganeScreen(navController)
+        }
+
     }
 }
