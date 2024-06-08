@@ -95,7 +95,7 @@ fun GetLayout(innerPadding: PaddingValues = PaddingValues(), navController: NavC
                 "Quản lý loại món ăn",
                 R.drawable.imgsplash,
                 navController,
-                Screen.FOOD_MANAGE_SCREEN.route
+                Screen.CATEGORY_SCREEN.route
             )
             ItemRow(
                 "Quản lý món ăn",

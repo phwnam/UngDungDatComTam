@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -51,11 +52,6 @@ android {
 
 dependencies {
 
-    implementation("androidx.compose.ui:ui-text-google-fonts:1.6.7")
-    implementation("androidx.navigation:navigation-compose:2.4.0-alpha10")
-    implementation("androidx.compose.ui:ui:1.0.5")
-    implementation("androidx.compose.material:material:1.0.5")
-    implementation("androidx.compose.ui:ui-tooling:1.0.5")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -71,4 +67,15 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation("androidx.compose.ui:ui-text-google-fonts:1.6.7")
+    implementation("androidx.navigation:navigation-compose:2.4.0-alpha10")
+    implementation("androidx.compose.ui:ui:1.0.5")
+    implementation("androidx.compose.material:material:1.0.5")
+    implementation("androidx.compose.ui:ui-tooling:1.0.5")
+
+    implementation("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
 }
