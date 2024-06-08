@@ -6,7 +6,7 @@ import com.xuong.ungdungdatcomtam.model.entities.CategoryEntity
 import com.xuong.ungdungdatcomtam.repository.Repository
 import kotlinx.coroutines.launch
 
-class CategoryViewModel(val repository: Repository): ViewModel() {
+class CategoryViewModel(private val repository: Repository): ViewModel() {
     fun addCategory(category: CategoryEntity) {
         viewModelScope.launch {
             repository.addCategoryToRoom(category)

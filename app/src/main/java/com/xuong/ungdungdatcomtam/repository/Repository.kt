@@ -4,7 +4,7 @@ import com.xuong.ungdungdatcomtam.model.entities.CategoryEntity
 import com.xuong.ungdungdatcomtam.room.CategoryDB
 
 
-class Repository(val categoryDB: CategoryDB) {
+class Repository(private val categoryDB: CategoryDB) {
     suspend fun addCategoryToRoom(categoryEntity: CategoryEntity) {
         categoryDB.categoryDAO().addCategory(categoryEntity)
     }
