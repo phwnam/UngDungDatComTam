@@ -55,6 +55,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -204,13 +205,18 @@ fun FoodMaganeScreen(
                                     Image(
                                         painter = painterResource(id = R.drawable.imgedit),
                                         contentDescription = null,
-                                        modifier = Modifier.size(25.dp),
+                                        modifier = Modifier.size(25.dp).clickable {
+                                            selectedFood=food
+                                            showEditDialog=true },
 
                                         )
                                     Image(
                                         painter = painterResource(id = R.drawable.imgdelete),
                                         contentDescription = null,
-                                        modifier = Modifier.size(25.dp),
+                                        modifier = Modifier.size(25.dp).clickable {
+                                            selectedFood = food
+                                            showDeleteDialog=true
+                                        },
                                     )
 
                                 }
@@ -230,21 +236,31 @@ fun FoodMaganeScreen(
                         onConfirmAdd = { newFood ->
                             viewModel.addFood(newFood)
                             showAddDialog = false
-                            viewModel.addFood(
-                                FoodEntity(
-                                    0,
-                                    foodName,
-                                    price.toIntOrNull() ?: 0,
-                                    inputImage.toString(),
-                                    categoriesId
-                                )
-                            )
-                            showAddDialog = false
-                            foodName = empty
-                            categoriesId = empty
-                            price = empty
+
                         }
                     )
+                }
+
+                if (showEditDialog && selectedFood!=null) {
+                    EditFoodDialog(
+                        categories = categories,
+                        food = selectedFood!!,
+                        onDismiss = { showEditDialog = false },
+                        onConfirmEdit = { editFood ->
+                            viewModel.updateFood(editFood)
+                            showEditDialog = false
+
+                        }
+                    )
+                }
+
+                if (showDeleteDialog) {
+                    DeleteLoaiSanphamDialog(onDismiss = { showDeleteDialog = false }, onConfirm = {
+                        selectedFood?.let { food ->
+                            viewModel.deleteFood(food)
+                        }
+                        showDeleteDialog = false
+                    })
                 }
 
 
@@ -413,6 +429,165 @@ fun AddFoodDialog(
 
 
 @Composable
+fun EditFoodDialog(
+    food: FoodEntity,
+    categories: List<CategoryEntity>,
+    onDismiss: () -> Unit,
+    onConfirmEdit: (FoodEntity) -> Unit
+) {
+    var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
+    var inputFoodName by remember { mutableStateOf(food.foodName?:"") }
+    var inputcategory by remember { mutableStateOf(food.categoryId?: categories.firstOrNull()?.categoryName ?: "") }
+    var inputFoodPrice by remember { mutableStateOf( food.price.toString()?:"") }
+    var addressImageUri = food.imagePath
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        selectedImageUri = uri
+    }
+
+    var selectedCategoryId by remember { mutableStateOf(categories.firstOrNull()?.cid ?: -1) }
+    Dialog(
+        onDismissRequest = onDismiss
+    ) {
+        Surface(
+            modifier = Modifier
+                .width(300.dp)
+                .height(500.dp),
+            shape = RoundedCornerShape(8.dp),
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .background(Color(0xFF373232)),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+
+                Image(
+                    painter = if (selectedImageUri != null) {
+                        rememberAsyncImagePainter(model = selectedImageUri)
+                    } else {
+                        rememberAsyncImagePainter(model = addressImageUri)
+                    },
+                    contentDescription = "Edit Image",
+                    modifier = Modifier
+                        .size(150.dp)
+                        .clickable {
+                            launcher.launch("image/*")
+                        }
+                )
+
+
+
+                Column(
+                    modifier = Modifier
+                        .background(
+                            Color(0xFF373232),
+                        )
+                        .padding(16.dp),
+                ) {
+                    Text(
+                        text = " Loại Món  ",
+                        color = Color.White,
+                        fontFamily = Inter_Family,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.W400,
+                        modifier = Modifier.padding(top = 12.dp)
+                    )
+                    MySpinner(
+                        items = categories.map { it.categoryName },
+                        selectedItem = inputcategory,
+                        onItemSelected = { inputcategory = it }
+                    )
+                    Text(
+                        text = "Giá",
+                        color = Color.White,
+                        fontSize = 16.sp,
+                        fontFamily = Inter_Family,
+                        fontWeight = FontWeight.W400,
+                        modifier = Modifier.padding(top = 12.dp)
+                    )
+                    OutlinedTextField(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color.White, shape = RoundedCornerShape(5.dp)),
+                        value = inputFoodPrice,
+                        onValueChange = {inputFoodPrice = it},
+                        placeholder = { androidx.compose.material3.Text(text = "Nhập món ăn") },
+                        keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number)
+                    )
+                    Text(
+                        text = "Tên món ăn",
+                        color = Color.White,
+                        fontSize = 16.sp,
+                        fontFamily = Inter_Family,
+                        fontWeight = FontWeight.W400,
+                        modifier = Modifier.padding(top = 12.dp)
+                    )
+                    OutlinedTextField(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(Color.White, shape = RoundedCornerShape(5.dp)),
+                        value = inputFoodName,
+                        onValueChange = {inputFoodName = it},
+                        placeholder = { androidx.compose.material3.Text(text = "Nhập món ăn") },
+                    )
+                    Spacer(modifier = Modifier.height(32.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                        Button(
+                            onClick = onDismiss,
+                            modifier = Modifier.width(110.dp),
+                            shape = RoundedCornerShape(8.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color("#E0AB3C".toColorInt()),
+                                contentColor = Color.White
+                            )
+                        ) {
+                            androidx.compose.material3.Text(text = "Hủy", fontSize = 14.sp)
+                        }
+                        Button(
+                            onClick = {
+                                onConfirmEdit(
+                                    FoodEntity(
+                                        id = food.id,
+                                        foodName = inputFoodName,
+                                        imagePath = selectedImageUri?.toString() ?: addressImageUri,
+                                        price = inputFoodPrice.toIntOrNull()?:0,
+                                        categoryId=inputcategory,
+
+                                        )
+                                )
+                            },
+                            modifier = Modifier.width(110.dp),
+                            shape = RoundedCornerShape(8.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color("#E0AB3C".toColorInt()),
+                                contentColor = Color.White
+                            )
+                        ) {
+                            androidx.compose.material3.Text(text = "Xác nhận", fontSize = 14.sp)
+                        }
+                    }
+
+                }
+
+            }
+        }
+    }
+
+
+}
+
+
+
+@Composable
 fun MySpinner(
     items: List<String?>,
     selectedItem: String,
@@ -459,6 +634,77 @@ fun MySpinner(
                         text = item,
                         color = if (item == selectedItem) MaterialTheme.colorScheme.primary else Color.Unspecified
                     )
+                }
+            }
+        }
+    }
+}
+
+
+@Composable
+fun DeleteFoodDialog(
+    food: FoodEntity,
+    onDismiss: () -> Unit,
+    onConfirm: () -> Unit
+) {
+    LocalContext.current
+    Dialog(
+        onDismissRequest = onDismiss
+    ) {
+        Surface(
+            modifier = Modifier
+                .width(300.dp)
+                .height(200.dp),
+            shape = RoundedCornerShape(8.dp),
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = Color("#221F1F".toColorInt()))
+                    .padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Spacer(modifier = Modifier.height(10.dp))
+                androidx.compose.material3.Text(
+                    text = "Thông báo !!! ", color = Color.White, modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                androidx.compose.material3.Text(
+                    text = "Bạn có chắc chắn muốn xóa loại món ăn này?",
+                    color = Color.White,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
+
+                Spacer(modifier = Modifier.height(30.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Button(
+                        onClick = onDismiss,
+                        modifier = Modifier.width(110.dp),
+                        shape = RoundedCornerShape(8.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color("#E0AB3C".toColorInt()),
+                            contentColor = Color.White
+                        )
+                    ) {
+                        androidx.compose.material3.Text(text = "Cancel", fontSize = 14.sp)
+                    }
+                    Button(
+                        onClick = {
+                            onConfirm()
+                            onDismiss()
+                        },
+                        modifier = Modifier.width(110.dp),
+                        shape = RoundedCornerShape(8.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color("#E0AB3C".toColorInt()),
+                            contentColor = Color.White
+                        )
+                    ) {
+                        androidx.compose.material3.Text(text = "Confirm", fontSize = 14.sp)
+                    }
                 }
             }
         }
