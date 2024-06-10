@@ -62,7 +62,7 @@ fun ProfileScreen(navController: NavController) {
                                     .fillMaxSize(0.5f)
                             )
                             Text(
-                                text = "0888898680",
+                                text = "  0325616628",
                                 color = Color.White,
                                 fontWeight = FontWeight.W700,
                                 fontSize = 20.sp
@@ -100,7 +100,7 @@ fun ProfileScreen(navController: NavController) {
                                     .fillMaxSize(0.5f)
                             )
                             Text(
-                                text = "0888898680",
+                                text = "  0325616628",
                                 color = Color.White,
                                 fontWeight = FontWeight.W700,
                                 fontSize = 20.sp
