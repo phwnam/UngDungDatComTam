@@ -44,7 +44,7 @@ fun BottomNavGraph(navController: NavHostController) {
             ManageScreen(navController)
         }
         composable(route = BottomBarScreen.Profile.route) {
-            ProfileScreen()
+            ProfileScreen(navController)
         }
         composable(route = Screen.FOOD_MANAGE_SCREEN.route) {
             FoodMaganeScreen(viewModel = foodViewModel, categoryViewModel = categoryViewModel){ navController.popBackStack() }
