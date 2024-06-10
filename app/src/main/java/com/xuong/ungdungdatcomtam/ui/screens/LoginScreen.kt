@@ -1,5 +1,6 @@
 package com.xuong.ungdungdatcomtam.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -17,7 +18,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -25,19 +29,48 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.xuong.ungdungdatcomtam.R
+import com.xuong.ungdungdatcomtam.room.UserDB
 import com.xuong.ungdungdatcomtam.ui.controllerNav.Screen
 import com.xuong.ungdungdatcomtam.ui.theme.Inter_Family
+import com.xuong.ungdungdatcomtam.viewmodel.LoginViewModel
+import com.xuong.ungdungdatcomtam.viewmodel.LoginViewModelFactory
+
 @Composable
 fun LoginScreen(navController: NavController) {
+    val context = LocalContext.current
+    val dbUser = UserDB.getIntance(context)
+    val userDao = dbUser.UserDAO()
+    val loginViewModel: LoginViewModel = viewModel(
+        factory = LoginViewModelFactory(userDao)
+    )
+    loginViewModel.insertSampleAdmin()
+
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    val isAuthenticated by loginViewModel.isAuthenticated.observeAsState()
+    val role by loginViewModel.isRole.observeAsState()
+
+    val isAuthenticatedState by remember { derivedStateOf { isAuthenticated }}
+
+    LaunchedEffect(isAuthenticatedState) {
+        if(isAuthenticatedState == true){
+            Toast.makeText(context,"Đăng nhập thành công",Toast.LENGTH_SHORT).show()
+            navController.navigate(Screen.BOTTOM_MAIN_SCREEN.route)
+        }else if(isAuthenticatedState == false){
+            Toast.makeText(context,"Kiểm tra tài khoản mật khẩu",Toast.LENGTH_SHORT).show()
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -134,8 +167,18 @@ fun LoginScreen(navController: NavController) {
             ) {
                 Button(
                     onClick = {
-                        navController.navigate(Screen.BOTTOM_MAIN_SCREEN.route){
-                            popUpTo(Screen.LOGIN_SCREEN.route) { inclusive = true }
+                        when {
+                            username.isEmpty() || password.isEmpty() -> {
+                                Toast.makeText(
+                                    context,
+                                    "Tên đăng nhập và mật khẩu không được để trống",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+
+                            else -> {
+                                loginViewModel.login(username, password)
+                            }
                         }
                     }, colors = ButtonDefaults.buttonColors(
                         containerColor = Color(0xFFFE724C)
