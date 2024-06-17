@@ -1,11 +1,7 @@
 package com.xuong.ungdungdatcomtam.ui.screens
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Intent
 import android.net.Uri
-import android.provider.MediaStore
-import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -59,10 +55,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.core.graphics.toColorInt
 import coil.compose.rememberAsyncImagePainter
-import coil.compose.rememberImagePainter
 import com.xuong.ungdungdatcomtam.R
 import com.xuong.ungdungdatcomtam.model.entities.CategoryEntity
 import com.xuong.ungdungdatcomtam.model.entities.FoodEntity
